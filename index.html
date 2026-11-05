@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>รักเมียค้าบบบ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600&family=Sriracha&display=swap">
+<style>
+:root {
+  --bg: #fff1f3;
+  --bg2: #ffd3dc;
+  --fg: #4a1424;
+  --muted: #8a4a5b;
+  --c1: #e11d48;
+  --c2: #ff6b8b;
+  --c3: #ff9a5c;
+  --glow: rgba(225, 29, 72, 0.28);
+  --card: rgba(255, 255, 255, 0.7);
+  --line: rgba(225, 29, 72, 0.3);
+  --heart-a: #e11d48;
+  --heart-b: #ff6b8b;
+  --heart-c: #ffa3b5;
+  --font-display: "Sriracha", "Mali", "Noto Sans Thai", sans-serif;
+  --font-body: "Mali", "Noto Sans Thai", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1b0910;
+    --bg2: #42102a;
+    --fg: #ffe3e9;
+    --muted: #e5a3b3;
+    --c1: #ff4d6d;
+    --c2: #ff8fa3;
+    --c3: #ffc27a;
+    --glow: rgba(255, 77, 109, 0.4);
+    --card: rgba(255, 255, 255, 0.07);
+    --line: rgba(255, 143, 163, 0.35);
+    --heart-a: #ff4d6d;
+    --heart-b: #ff8fa3;
+    --heart-c: #ffc2cf;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1b0910;
+  --bg2: #42102a;
+  --fg: #ffe3e9;
+  --muted: #e5a3b3;
+  --c1: #ff4d6d;
+  --c2: #ff8fa3;
+  --c3: #ffc27a;
+  --glow: rgba(255, 77, 109, 0.4);
+  --card: rgba(255, 255, 255, 0.07);
+  --line: rgba(255, 143, 163, 0.35);
+  --heart-a: #ff4d6d;
+  --heart-b: #ff8fa3;
+  --heart-c: #ffc2cf;
+  color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: radial-gradient(120% 90% at 50% 38%, var(--bg2) 0%, var(--bg) 70%) var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+}
+#sky { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+
+main {
+  position: relative; z-index: 1;
+  min-height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 1.6rem;
+  padding-block: 2rem;
+  text-align: center;
+}
+
+.stage { position: relative; display: grid; place-items: center; width: 100%; }
+.bigheart {
+  position: absolute; width: min(92vw, 560px); aspect-ratio: 1; max-width: 100%;
+  z-index: 0; overflow: visible;
+  filter: drop-shadow(0 0 40px var(--glow));
+  animation: beat 1.3s ease-in-out infinite;
+  transform-origin: 50% 55%;
+}
+.bigheart path { fill: var(--c1); fill-opacity: 0.13; stroke: var(--c2); stroke-width: 2; stroke-dasharray: 6 9; stroke-opacity: 0.7; }
+.bigheart.pop { animation: pop 0.45s ease-out; }
+@keyframes beat { 0%, 100% { transform: scale(1); } 14% { transform: scale(1.06); } 28% { transform: scale(0.99); } 42% { transform: scale(1.04); } 70% { transform: scale(1); } }
+@keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.16); } 100% { transform: scale(1); } }
+
+h1 {
+  position: relative; z-index: 1;
+  margin: 0;
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline;
+  column-gap: 0.12em;
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(3.1rem, 15.5vw, 8.2rem);
+  line-height: 1.5;
+  text-wrap: balance;
+}
+.w {
+  display: inline-block;
+  padding: 0.32em 0.03em 0.12em;
+  background-image: linear-gradient(100deg, var(--c1) 0%, var(--c2) 25%, var(--c3) 50%, var(--c2) 75%, var(--c1) 100%);
+  background-size: 300% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+  animation: shine 5s linear infinite, bob 2.6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.5s), calc(var(--i) * 0.12s);
+  cursor: pointer;
+  filter: drop-shadow(0 6px 14px var(--glow));
+  transition: transform 0.2s;
+}
+.w.tail { padding-inline: 0.01em; }
+.w.hop { animation: shine 5s linear infinite, hop 0.55s cubic-bezier(.3,1.6,.5,1); }
+@keyframes shine { to { background-position: -300% 0; } }
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-0.09em) rotate(var(--r, 0deg)); } }
+@keyframes hop { 0% { transform: translateY(0) scale(1); } 40% { transform: translateY(-0.35em) scale(1.18) rotate(-6deg); } 100% { transform: translateY(0) scale(1); } }
+
+.line {
+  position: relative; z-index: 1;
+  min-height: 1.9em;
+  margin: 0;
+  font-size: clamp(1.05rem, 4.4vw, 1.45rem);
+  color: var(--muted);
+}
+.line::after { content: ""; display: inline-block; width: 2px; height: 1.1em; margin-left: 3px; vertical-align: -0.15em; background: var(--c1); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.panel {
+  position: relative; z-index: 1;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 0.9rem 1.2rem;
+}
+.send {
+  font: inherit; font-weight: 600; font-size: 1.1rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--c1), var(--c2));
+  border: 0; border-radius: 999px;
+  padding: 0.85em 1.7em;
+  cursor: pointer;
+  box-shadow: 0 10px 28px var(--glow), inset 0 1px 0 rgba(255,255,255,0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.send:hover { transform: translateY(-2px) scale(1.03); }
+.send:active { transform: scale(0.95); }
+.send:focus-visible { outline: 3px solid var(--fg); outline-offset: 3px; }
+.count {
+  display: flex; flex-direction: column; align-items: center; gap: 0.1rem;
+  min-width: 7.5rem;
+  padding: 0.55rem 1.1rem;
+  border: 1.5px dashed var(--line); border-radius: 1rem;
+  background: var(--card);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.count b { font-family: var(--font-display); font-weight: 400; font-size: 2rem; line-height: 1.3; color: var(--c1); font-variant-numeric: tabular-nums; }
+.count b.tick { animation: tick 0.3s ease-out; }
+@keyframes tick { 40% { transform: scale(1.3); } }
+.count span { font-size: 0.85rem; color: var(--muted); }
+.note { position: relative; z-index: 1; margin: 0; min-height: 1.5em; font-size: 0.95rem; color: var(--muted); }
+.hint { position: relative; z-index: 1; margin: 0; font-size: 0.82rem; color: var(--muted); letter-spacing: 0.04em; opacity: 0.85; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bigheart, .w, .line::after { animation: none; }
+  .w { background-position: 0 0; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<main>
+  <div class="stage">
+    <svg class="bigheart" id="bigheart" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M50 90 C 8 60 2 30 22 16 C 36 6 47 14 50 24 C 53 14 64 6 78 16 C 98 30 92 60 50 90 Z"/>
+    </svg>
+    <h1 id="title" aria-label="รักเมียค้าบบบ">
+      <span class="w" style="--i:0;--r:-2deg" aria-hidden="true">รัก</span><span class="w" style="--i:1;--r:2deg" aria-hidden="true">เมีย</span><span class="w" style="--i:2;--r:-2deg" aria-hidden="true">ค้า</span><span class="w tail" style="--i:3;--r:3deg" aria-hidden="true">บ</span><span class="w tail" style="--i:4;--r:-3deg" aria-hidden="true">บ</span><span class="w tail" style="--i:5;--r:3deg" aria-hidden="true">บ</span>
+    </h1>
+  </div>
+  <p class="line" id="line" aria-live="off">รักที่สุดในโลกเลยค้าบ</p>
+  <div class="panel">
+    <button class="send" id="send" type="button">ส่งรักให้เมีย</button>
+    <div class="count"><b id="num">0</b><span>ส่งรักไปแล้ว (ครั้ง)</span></div>
+  </div>
+  <p class="note" id="note" aria-live="polite"></p>
+  <p class="hint">แตะตรงไหนก็ได้ หัวใจจะลอยขึ้นมา</p>
+</main>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var cv = document.getElementById("sky");
+  var ctx = cv.getContext("2d");
+  var W = 0, H = 0, dpr = 1;
+  var ambient = [], bursts = [];
+  var WORDS = ["รัก", "ค้าบ", "จุ๊บ", "ฮักๆ", "เมีย"];
+
+  function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || "#e11d48"; }
+  function palette() { return [css("--heart-a"), css("--heart-b"), css("--heart-c")]; }
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.max(10, Math.min(28, Math.round(W / 34)));
+    if (ambient.length !== n) {
+      var pal = palette();
+      ambient = [];
+      for (var i = 0; i < n; i++) ambient.push(makeAmbient(pal, true));
+    }
+  }
+  function makeAmbient(pal, anywhere) {
+    return {
+      x: rnd(0, W), y: anywhere ? rnd(0, H) : H + rnd(20, 120),
+      s: rnd(7, 20), vy: rnd(0.25, 0.8), ph: rnd(0, 6.28), sw: rnd(8, 26),
+      a: rnd(0.22, 0.6), c: pal[(Math.random() * pal.length) | 0]
+    };
+  }
+  function heart(x, y, s) {
+    ctx.beginPath();
+    ctx.moveTo(x, y + s * 0.4);
+    ctx.bezierCurveTo(x + s, y - s * 0.2, x + s * 0.6, y - s, x, y - s * 0.4);
+    ctx.bezierCurveTo(x - s * 0.6, y - s, x - s, y - s * 0.2, x, y + s * 0.4);
+    ctx.closePath();
+  }
+
+  function burst(x, y, big) {
+    var pal = palette(), n = big ? 22 : 14;
+    for (var i = 0; i < n; i++) {
+      var ang = rnd(0, 6.283), sp = rnd(1.8, big ? 7.5 : 5.5);
+      var isWord = Math.random() < 0.2;
+      bursts.push({
+        x: x, y: y, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 2,
+        s: rnd(8, 18), life: 1, decay: rnd(0.008, 0.016),
+        rot: rnd(-0.5, 0.5), vr: rnd(-0.05, 0.05),
+        c: pal[(Math.random() * pal.length) | 0],
+        word: isWord ? WORDS[(Math.random() * WORDS.length) | 0] : null
+      });
+    }
+    if (bursts.length > 260) bursts.splice(0, bursts.length - 260);
+  }
+
+  function frame(t) {
+    ctx.clearRect(0, 0, W, H);
+    var i, p;
+    for (i = 0; i < ambient.length; i++) {
+      p = ambient[i];
+      p.y -= p.vy;
+      var x = p.x + Math.sin(t / 1400 + p.ph) * p.sw;
+      if (p.y < -40) ambient[i] = makeAmbient(palette(), false);
+      ctx.globalAlpha = p.a; ctx.fillStyle = p.c;
+      heart(x, p.y, p.s); ctx.fill();
+    }
+    for (i = bursts.length - 1; i >= 0; i--) {
+      p = bursts[i];
+      p.x += p.vx; p.y += p.vy; p.vy += 0.12; p.vx *= 0.985; p.rot += p.vr; p.life -= p.decay;
+      if (p.life <= 0) { bursts.splice(i, 1); continue; }
+      ctx.save();
+      ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      ctx.globalAlpha = Math.max(0, Math.min(1, p.life * 1.4));
+      ctx.fillStyle = p.c;
+      if (p.word) {
+        ctx.font = (p.s * 1.7) + "px Sriracha, Mali, sans-serif";
+        ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.fillText(p.word, 0, 0);
+      } else {
+        heart(0, 0, p.s * Math.min(1, 0.5 + p.life)); ctx.fill();
+      }
+      ctx.restore();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener("resize", resize);
+  resize();
+  if (!reduce) { requestAnimationFrame(frame); }
+  else {
+    var pal0 = palette();
+    for (var k = 0; k < ambient.length; k++) {
+      var q = ambient[k]; ctx.globalAlpha = q.a * 0.8; ctx.fillStyle = pal0[k % 3]; heart(q.x, q.y, q.s); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // ตัวนับ
+  var num = document.getElementById("num");
+  var note = document.getElementById("note");
+  var big = document.getElementById("bigheart");
+  var count = 0;
+  try { count = parseInt(localStorage.getItem("rakmia-count") || "0", 10) || 0; } catch (e) {}
+  num.textContent = count.toLocaleString("th-TH");
+  var MILESTONES = { 1: "ถึงแล้วค้าบ ความรักชุดแรก", 10: "สิบแล้ว ยังไม่พอนะ", 50: "ห้าสิบแล้ว หัวใจเต็มจอเลย", 100: "ครบร้อย รักเมียเกินร้อยค้าบ", 500: "ห้าร้อย ใครว่ารักมีขีดจำกัด", 1000: "พันครั้ง รักจริงไม่โกหก" };
+
+  function send(x, y) {
+    count++;
+    num.textContent = count.toLocaleString("th-TH");
+    num.classList.remove("tick"); void num.offsetWidth; num.classList.add("tick");
+    try { localStorage.setItem("rakmia-count", String(count)); } catch (e) {}
+    if (MILESTONES[count]) note.textContent = MILESTONES[count];
+    big.classList.remove("pop"); void big.offsetWidth; big.classList.add("pop");
+    if (!reduce) burst(x, y, !!MILESTONES[count]);
+  }
+  window.addEventListener("pointerdown", function (e) { send(e.clientX, e.clientY); });
+  document.getElementById("send").addEventListener("click", function (e) {
+    if (e.detail === 0) { var r = this.getBoundingClientRect(); send(r.left + r.width / 2, r.top + r.height / 2); }
+  });
+
+  // เมาส์ลากแล้วมีหัวใจตาม
+  var lastTrail = 0;
+  window.addEventListener("pointermove", function (e) {
+    if (reduce || e.pointerType !== "mouse") return;
+    var now = performance.now();
+    if (now - lastTrail < 90) return;
+    lastTrail = now;
+    var pal = palette();
+    bursts.push({ x: e.clientX, y: e.clientY, vx: rnd(-0.6, 0.6), vy: rnd(-1.8, -0.8), s: rnd(5, 9), life: 1, decay: 0.02, rot: 0, vr: rnd(-0.03, 0.03), c: pal[(Math.random() * 3) | 0], word: null });
+  });
+
+  // แตะคำแล้วกระโดด
+  Array.prototype.forEach.call(document.querySelectorAll(".w"), function (el) {
+    el.addEventListener("pointerdown", function () {
+      el.classList.remove("hop"); void el.offsetWidth; el.classList.add("hop");
+    });
+    el.addEventListener("animationend", function (ev) { if (ev.animationName === "hop") el.classList.remove("hop"); });
+  });
+
+  // ข้อความพิมพ์ทีละตัว
+  var LINES = ["รักที่สุดในโลกเลยค้าบ", "ขอบคุณที่อยู่ข้างกันนะ", "วันนี้ก็รักเหมือนเดิม", "รักเมียคนเดียวค้าบ", "กินข้าวหรือยังค้าบ"];
+  var lineEl = document.getElementById("line");
+  function graphemes(s) {
+    try { return Array.from(new Intl.Segmenter("th", { granularity: "grapheme" }).segment(s), function (g) { return g.segment; }); }
+    catch (e) { return Array.from(s); }
+  }
+  if (!reduce) {
+    var li = 0;
+    (function type() {
+      var g = graphemes(LINES[li]), n = 0;
+      lineEl.textContent = "";
+      (function step() {
+        n++;
+        lineEl.textContent = g.slice(0, n).join("");
+        if (n < g.length) setTimeout(step, 85);
+        else setTimeout(function () { erase(g); }, 2200);
+      })();
+      function erase(arr) {
+        var m = arr.length;
+        (function back() {
+          m--;
+          lineEl.textContent = arr.slice(0, m).join("");
+          if (m > 0) setTimeout(back, 35);
+          else { li = (li + 1) % LINES.length; setTimeout(type, 300); }
+        })();
+      }
+    })();
+  }
+})();
+</script>
+</body>
+</html>
